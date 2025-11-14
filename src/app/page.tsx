@@ -2,12 +2,29 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { CheckCircle2, Sparkles, Rocket, TrendingUp, Shield, BookOpen, Video, Award } from "lucide-react";
+import { CheckCircle2, Sparkles, Rocket, TrendingUp, Shield, BookOpen, Video, Award, Share2, Facebook, Twitter, Linkedin, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function LandingPage() {
   const scrollToCheckout = () => {
     document.getElementById("checkout")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const siteUrl = typeof window !== 'undefined' ? window.location.href : 'https://seu-site.com';
+  const shareText = 'Aprenda a criar apps com IA! LASY AI na Prática - Do Zero à Renda';
+
+  const handleShare = (platform: string) => {
+    const encodedUrl = encodeURIComponent(siteUrl);
+    const encodedText = encodeURIComponent(shareText);
+    
+    const shareUrls: { [key: string]: string } = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+      whatsapp: `https://wa.me/?text=${encodedText}%20${encodedUrl}`
+    };
+
+    window.open(shareUrls[platform], '_blank', 'width=600,height=400');
   };
 
   return (
@@ -67,6 +84,101 @@ export default function LandingPage() {
               <CheckCircle2 className="w-5 h-5 text-green-600" />
               <span>Certificado</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vídeo Demonstrativo + Compartilhamento Social */}
+      <section className="py-20 px-4 bg-white">
+        <div className="container mx-auto max-w-5xl">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-[#0066FF]/10 text-[#0066FF] px-4 py-2 rounded-full mb-4">
+              <Video className="w-4 h-4" />
+              <span className="text-sm font-semibold">VEJA COMO FUNCIONA</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#111111] mb-4">
+              Veja o Curso em Ação
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Assista ao vídeo e descubra como você pode criar apps incríveis com IA
+            </p>
+          </div>
+
+          {/* Vídeo Container */}
+          <Card className="overflow-hidden border-2 border-gray-200 shadow-xl mb-8">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0066FF]/20 to-[#0052CC]/20 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Video className="w-10 h-10 text-[#0066FF]" />
+                  </div>
+                  <p className="text-gray-700 font-semibold">Vídeo Demonstrativo</p>
+                  <p className="text-sm text-gray-500 mt-2">Substitua este espaço com seu vídeo do YouTube, Vimeo ou arquivo de vídeo</p>
+                  <p className="text-xs text-gray-400 mt-4 max-w-md mx-auto px-4">
+                    Para adicionar seu vídeo: use um iframe do YouTube/Vimeo ou tag &lt;video&gt; com seu arquivo
+                  </p>
+                </div>
+              </div>
+              {/* Exemplo de como adicionar vídeo do YouTube:
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/SEU_VIDEO_ID"
+                title="Vídeo Demonstrativo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+              */}
+            </div>
+          </Card>
+
+          {/* Botões de Compartilhamento Social */}
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Share2 className="w-5 h-5 text-gray-600" />
+              <p className="text-lg font-semibold text-gray-700">Compartilhe com seus amigos</p>
+            </div>
+            
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Button
+                onClick={() => handleShare('facebook')}
+                className="bg-[#1877F2] hover:bg-[#166FE5] text-white gap-2"
+                size="lg"
+              >
+                <Facebook className="w-5 h-5" />
+                <span className="hidden sm:inline">Facebook</span>
+              </Button>
+
+              <Button
+                onClick={() => handleShare('twitter')}
+                className="bg-[#1DA1F2] hover:bg-[#1A94DA] text-white gap-2"
+                size="lg"
+              >
+                <Twitter className="w-5 h-5" />
+                <span className="hidden sm:inline">Twitter</span>
+              </Button>
+
+              <Button
+                onClick={() => handleShare('linkedin')}
+                className="bg-[#0A66C2] hover:bg-[#095196] text-white gap-2"
+                size="lg"
+              >
+                <Linkedin className="w-5 h-5" />
+                <span className="hidden sm:inline">LinkedIn</span>
+              </Button>
+
+              <Button
+                onClick={() => handleShare('whatsapp')}
+                className="bg-[#25D366] hover:bg-[#20BD5A] text-white gap-2"
+                size="lg"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span className="hidden sm:inline">WhatsApp</span>
+              </Button>
+            </div>
+
+            <p className="text-sm text-gray-500 mt-4">
+              Ajude outras pessoas a descobrirem como criar apps com IA!
+            </p>
           </div>
         </div>
       </section>
